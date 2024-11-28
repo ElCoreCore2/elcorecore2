@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneos - Croissant Tours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 1em;
+        }
+
+        .header nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            transition: background-color 0.3s;
+        }
+
+        .header nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .hero {
+            background: linear-gradient(to right, #4CAF50, #81C784);
+            color: white;
+            text-align: center;
+            padding: 4em 1em;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+        .tournaments-container {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 1em;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5em;
+        }
+
+        .tournament-article {
+            background: linear-gradient(to bottom, #ffffff, #f4f4f4);
+            border-radius: 15px;
+            padding: 1.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tournament-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .tournament-article img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1em;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .tournament-article h3 {
+            font-size: 1.6em;
+            margin-bottom: 0.5em;
+            color: #4CAF50;
+        }
+
+        .tournament-article p {
+            margin: 0.5em 0;
+            font-size: 1em;
+            color: #555;
+            text-align: justify;
+        }
+
+        .tournament-article .date {
+            font-weight: bold;
+            color: #333;
+            margin-top: 1em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            font-size: 0.9em;
+        }
+
+        .tournament-article .date i {
+            color: #4CAF50;
+        }
+
+        .tournament-article .status {
+            font-weight: bold;
+            margin-top: 0.5em;
+            font-size: 1em;
+            color: #fff;
+            padding: 0.5em;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .status.upcoming {
+            background-color: #FFA500; /* Naranja */
+        }
+
+        .status.ongoing {
+            background-color: #4CAF50; /* Verde */
+        }
+
+        .status.finished {
+            background-color: #E74C3C; /* Rojo */
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header nav ul {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Torneos</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="news.html"><i class="fas fa-newspaper"></i> Noticias</a></li>
+                    <li><a href="winners.html"><i class="fas fa-medal"></i> Ganadores</a></li>
+                    <li><a href="staff-login.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Últimos Torneos</h2>
+            <p>Participa en los torneos más emocionantes y demuestra tus habilidades.</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="tournaments-container" id="tournament-articles"></div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Croissant Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function renderTournaments() {
+            const articles = JSON.parse(localStorage.getItem("articles")) || [];
+            const tournamentContainer = document.getElementById("tournament-articles");
+            tournamentContainer.innerHTML = "";
+
+            if (articles.length === 0) {
+                tournamentContainer.innerHTML = "<p>No hay torneos disponibles.</p>";
+                return;
+            }
+
+            const now = new Date();
+            articles.forEach(article => {
+                if (article.section !== "tournaments") return;
+
+                const articleElement = document.createElement("div");
+                articleElement.classList.add("tournament-article");
+
+                if (article.imageUrl) {
+                    const img = document.createElement("img");
+                    img.src = article.imageUrl;
+                    img.alt = article.title;
+                    articleElement.appendChild(img);
+                }
+
+                const startDate = article.startTime ? new Date(article.startTime) : null;
+                const endDate = article.endTime ? new Date(article.endTime) : null;
+                let status = "PRÓXIMO TORNEO";
+                let statusClass = "upcoming";
+
+                if (startDate && endDate) {
+                    if (now >= startDate && now <= endDate) {
+                        status = "EN CURSO";
+                        statusClass = "ongoing";
+                    } else if (now > endDate) {
+                        status = "FINALIZADO";
+                        statusClass = "finished";
+                    }
+                }
+
+                articleElement.innerHTML += `
+                    <h3>${article.title}</h3>
+                    <p>${article.content}</p>
+                    <p class="date"><i class="fas fa-calendar-alt"></i> Inicio: ${startDate ? startDate.toLocaleString() : "No especificada"}</p>
+                    <p class="date"><i class="fas fa-calendar-alt"></i> Fin: ${endDate ? endDate.toLocaleString() : "No especificada"}</p>
+                `;
+
+                const statusElement = document.createElement("p");
+                statusElement.classList.add("status", statusClass);
+                statusElement.textContent = status;
+                articleElement.appendChild(statusElement);
+
+                tournamentContainer.appendChild(articleElement);
+            });
+        }
+
+        renderTournaments();
+    </script>
+</body>
+</html>

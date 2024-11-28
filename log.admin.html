@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-container button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background: #388E3C;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 1rem;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #388E3C;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 10px 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Acceso Administrador</h1>
+        <form id="admin-login-form">
+            <input type="password" id="key" placeholder="Introduce tu clave" required>
+            <button type="submit">Iniciar Sesión</button>
+            <div class="loading-spinner" id="loading-spinner"></div>
+            <div id="error-message">Clave incorrecta</div>
+        </form>
+        <a href="index.html" class="back-link">Volver al Inicio</a>
+    </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const key = document.getElementById('key').value;
+            const errorMessage = document.getElementById('error-message');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            errorMessage.style.display = 'none'; // Ocultar el error
+            loadingSpinner.style.display = 'block'; // Mostrar el spinner
+
+            try {
+                const response = await fetch('http://localhost:3000/admin-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key })
+                });
+
+                loadingSpinner.style.display = 'none'; // Ocultar el spinner cuando termine la respuesta
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    errorMessage.textContent = error.message;
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+                // Si el login es correcto, redirigir al panel de administración
+                window.location.href = 'administradores.html';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al intentar iniciar sesión. Por favor, intenta nuevamente.');
+                loadingSpinner.style.display = 'none'; // Ocultar el spinner en caso de error
+            }
+        });
+    </script>
+</body>
+</html>

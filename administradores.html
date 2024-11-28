@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Administradores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 1em 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        h1.logo {
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5em;
+        }
+
+        main {
+            padding: 2em 0;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        input, textarea, select, button {
+            width: 100%;
+            padding: 0.5em;
+            margin-top: 0.5em;
+        }
+
+        .btn, .btn-danger {
+            display: block;
+            text-align: center;
+            width: auto;
+            padding: 0.8em 1.5em;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+
+        footer {
+            text-align: center;
+            background: #333;
+            color: white;
+            padding: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Centro de Administradores</h1>
+            <nav>
+                <a href="index.html">Volver al Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="admin-panel">
+            <div class="container">
+                <h2>Gestión del Staff y Administradores</h2>
+
+                <!-- Añadir Administrador -->
+                <div>
+                    <h3>Añadir Administrador</h3>
+                    <form id="add-admin-form">
+                        <div class="form-group">
+                            <label for="new-admin-username">Usuario:</label>
+                            <input type="text" id="new-admin-username" placeholder="Nuevo Usuario Administrador" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-admin-password">Contraseña:</label>
+                            <input type="password" id="new-admin-password" placeholder="Nueva Contraseña" required>
+                        </div>
+                        <button type="button" id="add-admin-btn" class="btn">Añadir Administrador</button>
+                    </form>
+                </div>
+
+                <!-- Eliminar Administrador -->
+                <div>
+                    <h3>Eliminar Administrador</h3>
+                    <form id="delete-admin-form">
+                        <div class="form-group">
+                            <label for="delete-admin-username">Usuario del Administrador:</label>
+                            <input type="text" id="delete-admin-username" placeholder="Usuario del Administrador a Eliminar" required>
+                        </div>
+                        <button type="button" id="delete-admin-btn" class="btn-danger">Eliminar Administrador</button>
+                    </form>
+                </div>
+
+                <!-- Añadir Staff -->
+                <div>
+                    <h3>Añadir Staff</h3>
+                    <form id="add-staff-form">
+                        <div class="form-group">
+                            <label for="new-staff-username">Usuario:</label>
+                            <input type="text" id="new-staff-username" placeholder="Nuevo Usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-staff-password">Contraseña:</label>
+                            <input type="password" id="new-staff-password" placeholder="Nueva Contraseña" required>
+                        </div>
+                        <button type="button" id="add-staff-btn" class="btn">Añadir Staff</button>
+                    </form>
+                </div>
+
+                <!-- Eliminar Staff -->
+                <div>
+                    <h3>Eliminar Staff</h3>
+                    <form id="delete-staff-form">
+                        <div class="form-group">
+                            <label for="delete-staff-username">Usuario del Staff:</label>
+                            <input type="text" id="delete-staff-username" placeholder="Usuario del Staff a Eliminar" required>
+                        </div>
+                        <button type="button" id="delete-staff-btn" class="btn-danger">Eliminar Staff</button>
+                    </form>
+                </div>
+
+                <!-- Borrar Contenido -->
+                <div>
+                    <h3>Borrar Contenido</h3>
+                    <form id="delete-content-form">
+                        <div class="form-group">
+                            <label for="delete-section">Tipo de Contenido:</label>
+                            <select id="delete-section" required>
+                                <option value="news">Noticias</option>
+                                <option value="tournaments">Torneos</option>
+                                <option value="winners">Ganadores</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="delete-title">Título del Contenido:</label>
+                            <input type="text" id="delete-title" placeholder="Título del contenido a borrar" required>
+                        </div>
+                        <button type="button" id="delete-content-btn" class="btn-danger">Borrar Contenido</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Croissant Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const admins = JSON.parse(localStorage.getItem("admins")) || {};
+        const staff = JSON.parse(localStorage.getItem("staff")) || {};
+        const articles = JSON.parse(localStorage.getItem("articles")) || [];
+
+        // Añadir Administrador
+        document.getElementById("add-admin-btn").addEventListener("click", () => {
+            const username = document.getElementById("new-admin-username").value.trim();
+            const password = document.getElementById("new-admin-password").value.trim();
+
+            if (!username || !password) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            if (admins[username]) {
+                alert("El administrador ya existe.");
+                return;
+            }
+
+            admins[username] = password;
+            localStorage.setItem("admins", JSON.stringify(admins));
+            alert("Administrador añadido correctamente.");
+            document.getElementById("add-admin-form").reset();
+        });
+
+        // Eliminar Administrador
+        document.getElementById("delete-admin-btn").addEventListener("click", () => {
+            const username = document.getElementById("delete-admin-username").value.trim();
+
+            if (!admins[username]) {
+                alert("El administrador no existe.");
+                return;
+            }
+
+            delete admins[username];
+            localStorage.setItem("admins", JSON.stringify(admins));
+            alert("Administrador eliminado correctamente.");
+            document.getElementById("delete-admin-form").reset();
+        });
+
+        // Añadir Staff
+        document.getElementById("add-staff-btn").addEventListener("click", () => {
+            const username = document.getElementById("new-staff-username").value.trim();
+            const password = document.getElementById("new-staff-password").value.trim();
+
+            if (!username || !password) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            if (staff[username]) {
+                alert("El usuario del Staff ya existe.");
+                return;
+            }
+
+            staff[username] = password;
+            localStorage.setItem("staff", JSON.stringify(staff));
+            alert("Staff añadido correctamente.");
+            document.getElementById("add-staff-form").reset();
+        });
+
+        // Eliminar Staff
+        document.getElementById("delete-staff-btn").addEventListener("click", () => {
+            const username = document.getElementById("delete-staff-username").value.trim();
+
+            if (!staff[username]) {
+                alert("El usuario del Staff no existe.");
+                return;
+            }
+
+            delete staff[username];
+            localStorage.setItem("staff", JSON.stringify(staff));
+            alert("Staff eliminado correctamente.");
+            document.getElementById("delete-staff-form").reset();
+        });
+
+        // Borrar Contenido
+        document.getElementById("delete-content-btn").addEventListener("click", () => {
+            const section = document.getElementById("delete-section").value.trim();
+            const title = document.getElementById("delete-title").value.trim();
+
+            const updatedArticles = articles.filter(article => !(article.section === section && article.title === title));
+
+            if (updatedArticles.length === articles.length) {
+                alert("No se encontró contenido con ese título.");
+                return;
+            }
+
+            localStorage.setItem("articles", JSON.stringify(updatedArticles));
+            alert("Contenido borrado correctamente.");
+            document.getElementById("delete-content-form").reset();
+        });
+    </script>
+</body>
+</html>

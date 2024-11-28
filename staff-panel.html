@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Staff</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            background-color: #FF5722;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .header nav a:hover {
+            background-color: #FF7043;
+        }
+
+        /* Main Section */
+        .form-section {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1em;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h3 {
+            font-size: 1.8em;
+            color: #4CAF50;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5em;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.8em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #45A049;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 1em;
+            text-align: center;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo"><i class="fas fa-user-tie"></i> Panel de Staff</h1>
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> Volver al Inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="form-section">
+            <h3><i class="fas fa-edit"></i> Crear Nuevo Artículo</h3>
+            <form id="article-form">
+                <div class="form-group">
+                    <label for="section"><i class="fas fa-list"></i> Sección:</label>
+                    <select id="section" name="section" required>
+                        <option value="news">Noticias</option>
+                        <option value="tournaments">Torneos</option>
+                        <option value="winners">Ganadores</option>
+                    </select>
+                </div>
+
+                <!-- Campo de etiquetas para noticias -->
+                <div id="news-tags" style="display: none;">
+                    <div class="form-group">
+                        <label for="tags"><i class="fas fa-tags"></i> Etiqueta:</label>
+                        <select id="tags" name="tags">
+                            <option value="actualizaciones">Actualizaciones</option>
+                            <option value="anuncios">Anuncios</option>
+                            <option value="servidor-discord">Servidor de Discord</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Campos adicionales para torneos -->
+                <div id="tournament-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="start-time"><i class="fas fa-clock"></i> Inicio del Torneo:</label>
+                        <input type="datetime-local" id="start-time" name="start-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="end-time"><i class="fas fa-clock"></i> Fin del Torneo:</label>
+                        <input type="datetime-local" id="end-time" name="end-time">
+                    </div>
+                    <div class="form-group">
+                        <label for="image-url"><i class="fas fa-image"></i> URL de la Imagen (opcional):</label>
+                        <input type="url" id="image-url" name="image-url" placeholder="URL de la imagen">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="title"><i class="fas fa-heading"></i> Título:</label>
+                    <input type="text" id="title" name="title" placeholder="Título del artículo" required>
+                </div>
+                <div class="form-group">
+                    <label for="content"><i class="fas fa-align-left"></i> Contenido:</label>
+                    <textarea id="content" name="content" rows="6" placeholder="Escribe el contenido aquí" required></textarea>
+                </div>
+
+                <button type="button" id="publish-button" class="btn"><i class="fas fa-paper-plane"></i> Publicar</button>
+                <p id="success-message" class="success-message"><i class="fas fa-check-circle"></i> Artículo publicado con éxito.</p>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Croissant Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Muestra los campos dinámicos según la sección seleccionada
+        document.getElementById("section").addEventListener("change", function () {
+            const section = this.value;
+            document.getElementById("news-tags").style.display = section === "news" ? "block" : "none";
+            document.getElementById("tournament-details").style.display = section === "tournaments" ? "block" : "none";
+        });
+
+        // Publica un artículo y guarda en localStorage
+        document.getElementById("publish-button").addEventListener("click", function () {
+            const section = document.getElementById("section").value;
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+            const tags = section === "news" ? document.getElementById("tags").value : null;
+            const startTime = section === "tournaments" ? document.getElementById("start-time").value : null;
+            const endTime = section === "tournaments" ? document.getElementById("end-time").value : null;
+            const imageUrl = section === "tournaments" ? document.getElementById("image-url").value : null;
+
+            if (section && title && content) {
+                const articles = JSON.parse(localStorage.getItem("articles")) || [];
+                const newArticle = { section, title, content, tags, startTime, endTime, imageUrl };
+                articles.push(newArticle);
+                localStorage.setItem("articles", JSON.stringify(articles));
+
+                document.getElementById("success-message").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("success-message").style.display = "none";
+                }, 3000);
+
+                document.getElementById("article-form").reset();
+                document.getElementById("news-tags").style.display = "none";
+                document.getElementById("tournament-details").style.display = "none";
+            } else {
+                alert("Por favor, complete todos los campos requeridos.");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias - Croissant Tours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 1em;
+        }
+
+        .header nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            transition: background-color 0.3s;
+        }
+
+        .header nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 1em;
+            display: flex;
+            justify-content: flex-start;
+            gap: 1em;
+        }
+
+        .filter-section select {
+            padding: 0.5em;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* News Section */
+        .news-container {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 1em;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5em;
+        }
+
+        .news-article {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .news-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-article h3 {
+            font-size: 1.6em;
+            margin-bottom: 0.5em;
+            color: #4CAF50;
+        }
+
+        .news-article p {
+            font-size: 1em;
+            color: #555;
+            text-align: justify;
+        }
+
+        .news-article .tag {
+            display: inline-block;
+            margin-top: 1em;
+            padding: 0.3em 0.8em;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Noticias</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="winners.html"><i class="fas fa-trophy"></i> Ganadores</a></li>
+                    <li><a href="tournaments.html"><i class="fas fa-trophy"></i> Torneos</a></li>
+                    <li><a href="staff-login.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <label for="tag-filter">Filtrar por etiqueta:</label>
+        <select id="tag-filter">
+            <option value="all">Todas las etiquetas</option>
+            <option value="actualizaciones">Actualizaciones</option>
+            <option value="anuncios">Anuncios</option>
+            <option value="servidor-discord">Servidor de Discord</option>
+        </select>
+    </div>
+
+    <!-- News Section -->
+    <main>
+        <div class="news-container" id="news-container">
+            <!-- Los artículos de noticias se cargarán aquí -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Croissant Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar artículos desde localStorage
+        const articles = JSON.parse(localStorage.getItem("articles")) || [];
+        const newsContainer = document.getElementById("news-container");
+        const tagFilter = document.getElementById("tag-filter");
+
+        // Renderizar artículos
+        function renderArticles(filter = "all") {
+            const filteredArticles = articles.filter(article => {
+                return article.section === "news" && (filter === "all" || article.tags === filter);
+            });
+
+            newsContainer.innerHTML = "";
+
+            if (filteredArticles.length === 0) {
+                newsContainer.innerHTML = "<p>No hay noticias disponibles para esta etiqueta.</p>";
+                return;
+            }
+
+            filteredArticles.forEach(article => {
+                const articleElement = document.createElement("div");
+                articleElement.className = "news-article";
+                articleElement.innerHTML = `
+                    <h3>${article.title}</h3>
+                    <p>${article.content}</p>
+                    <span class="tag">${article.tags}</span>
+                `;
+                newsContainer.appendChild(articleElement);
+            });
+        }
+
+        // Evento para cambiar el filtro
+        tagFilter.addEventListener("change", () => {
+            renderArticles(tagFilter.value);
+        });
+
+        // Renderizar artículos al cargar la página
+        renderArticles();
+    </script>
+</body>
+</html>

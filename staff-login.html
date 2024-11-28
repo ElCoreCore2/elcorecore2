@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso con Clave</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #66a6ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #4b8bdb;
+    }
+
+    .back-button {
+      background: #ff6f61;
+      color: white;
+      margin-top: 15px;
+    }
+
+    .back-button:hover {
+      background: #e65a50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Iniciar Sesión</h1>
+  <form id="login-form">
+    <label for="key">Clave de Acceso:</label>
+    <input type="password" id="key" name="key" required>
+    <br>
+    <button type="submit">Acceder</button>
+    <button type="button" class="back-button" onclick="goBack()">Volver</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('login-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const key = document.getElementById('key').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          alert(error.message);
+          return;
+        }
+
+        const data = await response.json();
+        window.location.href = `http://localhost:3000${data.redirect}`;
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error al iniciar sesión');
+      }
+    });
+
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

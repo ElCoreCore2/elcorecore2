@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Croissant Tours</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5em 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            gap: 1em;
+        }
+
+        .header nav ul li {
+            display: inline;
+        }
+
+        .header nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            transition: background-color 0.3s;
+        }
+
+        .header nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .language-switcher {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+
+        .hero {
+            background: linear-gradient(to right, #4CAF50, #81C784);
+            color: white;
+            text-align: center;
+            padding: 4em 1em;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 1.5em;
+        }
+
+
+        .faq-container {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 0 1em;
+        }
+
+        .faq-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1em;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 1em;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: left;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #e9ecef;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 1em;
+            font-size: 1em;
+            color: #555;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .faq-question.active {
+            background-color: #81C784;
+            color: white;
+        }
+
+   
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header nav ul {
+                flex-direction: column;
+                gap: 0.5em;
+            }
+
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .faq-question {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo" id="page-title">Preguntas Frecuentes</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="news.html" id="nav-news"><i class="fas fa-newspaper"></i> Noticias</a></li>
+                    <li><a href="tournaments.html" id="nav-tournaments"><i class="fas fa-trophy"></i> Torneos</a></li>
+                    <li><a href="winners.html" id="nav-winners"><i class="fas fa-medal"></i> Ganadores</a></li>
+                    <li><a href="discord.html" id="nav-discord"><i class="fab fa-discord"></i> Discord</a></li>
+                </ul>
+            </nav>
+            <button class="language-switcher" id="language-switcher">English</button>
+        </div>
+    </header>
+
+
+        <section class="hero">
+        <div class="container">
+            <h2 id="hero-title">❓ Preguntas Frecuentes</h2>
+            <p id="hero-desc">Encuentra las respuestas a las preguntas más comunes sobre Croissant Tours.</p>
+        </div>
+    </section>
+
+
+    <main>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question"><i class="fas fa-question-circle"></i> <span id="faq1-question">¿Qué son los Croissant Tours?</span></button>
+                <div class="faq-answer" id="faq1-answer">
+                    <p>Los Croissant Tours son torneos creados por un pequeño grupo de jugadores. Se puede jugar en el servidor, primero te tienes que registrar. Si tienes más preguntas, únete al servidor.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><i class="fas fa-map-marker-alt"></i> <span id="faq2-question">¿En qué región se hacen los torneos?</span></button>
+                <div class="faq-answer" id="faq2-answer">
+                    <p>Los torneos se realizarán dependiendo de la región que el creador del torneo quiera.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question"><i class="fas fa-clock"></i> <span id="faq3-question">¿A qué hora son los torneos?</span></button>
+                <div class="faq-answer" id="faq3-answer">
+                    <p>La hora de los torneos dependerá del creador que realice el torneo.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Croissant Tours. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                pageTitle: "Preguntas Frecuentes",
+                nav: {
+                    home: "Inicio",
+                    news: "Noticias",
+                    tournaments: "Torneos",
+                    winners: "Ganadores",
+                    discord: "Discord"
+                },
+                hero: {
+                    title: "❓ Preguntas Frecuentes",
+                    desc: "Encuentra las respuestas a las preguntas más comunes sobre Croissant Tours."
+                },
+                faq: [
+                    {
+                        question: "¿Qué son los Croissant Tours?",
+                        answer: "Los Croissant Tours son torneos creados por un pequeño grupo de jugadores. Se puede jugar en el servidor, primero te tienes que registrar. Si tienes más preguntas, únete al servidor."
+                    },
+                    {
+                        question: "¿En qué región se hacen los torneos?",
+                        answer: "Los torneos se realizarán dependiendo de la región que el creador del torneo quiera."
+                    },
+                    {
+                        question: "¿A qué hora son los torneos?",
+                        answer: "La hora de los torneos dependerá del creador que realice el torneo."
+                    }
+                ]
+            },
+            en: {
+                pageTitle: "Frequently Asked Questions",
+                nav: {
+                    home: "Home",
+                    news: "News",
+                    tournaments: "Tournaments",
+                    winners: "Winners",
+                    discord: "Discord"
+                },
+                hero: {
+                    title: "❓ Frequently Asked Questions",
+                    desc: "Find answers to the most common questions about Croissant Tours."
+                },
+                faq: [
+                    {
+                        question: "What are Croissant Tours?",
+                        answer: "Croissant Tours are tournaments created by a small group of players. You can play on the server, but you must register first. If you have more questions, join the server."
+                    },
+                    {
+                        question: "Which region are the tournaments held in?",
+                        answer: "The tournaments will be held depending on the region chosen by the tournament creator."
+                    },
+                    {
+                        question: "What time are the tournaments?",
+                        answer: "The time of the tournaments will depend on the creator who organizes the tournament."
+                    }
+                ]
+            }
+        };
+
+        let currentLanguage = "es";
+
+        document.getElementById("language-switcher").addEventListener("click", () => {
+            const lang = translations[currentLanguage];
+
+            document.getElementById("page-title").textContent = lang.pageTitle;
+            document.getElementById("nav-home").innerHTML = `<i class="fas fa-home"></i> ${lang.nav.home}`;
+            document.getElementById("nav-news").innerHTML = `<i class="fas fa-newspaper"></i> ${lang.nav.news}`;
+            document.getElementById("nav-tournaments").innerHTML = `<i class="fas fa-trophy"></i> ${lang.nav.tournaments}`;
+            document.getElementById("nav-winners").innerHTML = `<i class="fas fa-medal"></i> ${lang.nav.winners}`;
+            document.getElementById("nav-discord").innerHTML = `<i class="fab fa-discord"></i> ${lang.nav.discord}`;
+
+            document.getElementById("hero-title").textContent = lang.hero.title;
+            document.getElementById("hero-desc").textContent = lang.hero.desc;
+
+            lang.faq.forEach((faq, index) => {
+                document.getElementById(`faq${index + 1}-question`).textContent = faq.question;
+                document.getElementById(`faq${index + 1}-answer`).querySelector("p").textContent = faq.answer;
+            });
+
+            currentLanguage = currentLanguage === "es" ? "en" : "es";
+            document.getElementById("language-switcher").textContent = currentLanguage === "es" ? "English" : "Español";
+        });
+
+        document.querySelectorAll(".faq-question").forEach(button => {
+            button.addEventListener("click", () => {
+                const answer = button.nextElementSibling;
+                const isActive = button.classList.contains("active");
+                document.querySelectorAll(".faq-answer").forEach(item => item.style.display = "none");
+                document.querySelectorAll(".faq-question").forEach(btn => btn.classList.remove("active"));
+                if (!isActive) {
+                    answer.style.display = "block";
+                    button.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
